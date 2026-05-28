@@ -107,7 +107,7 @@ function FloatingCard({
     <motion.div
       initial={{ opacity: 0, scale: 0.75, y: 16 }}
       animate={{ opacity: 1, scale: 1, y: 0 }}
-      transition={{ delay, duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ delay, duration: 0.65, ease: [0.22, 1, 0.36, 1] as any }}
       className={`absolute ${className} z-20`}
       aria-hidden="true"
     >
@@ -189,7 +189,7 @@ function HeroVisual() {
       <motion.div
         initial={{ opacity: 0, scale: 0.6 }}
         animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+        transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] as any }}
         className="absolute inset-0 flex items-center justify-center"
       >
         <div className="relative w-[48%] h-[48%] flex items-center justify-center">
@@ -307,7 +307,7 @@ export default function HeroSection() {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
+      transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] as any },
     },
   };
 
@@ -548,7 +548,11 @@ export default function HeroSection() {
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 1, ease: [0.22, 1, 0.36, 1], delay: 0.25 }}
+            transition={{
+              duration: 1,
+              ease: [0.22, 1, 0.36, 1] as any,
+              delay: 0.25,
+            }}
             className="flex-1 w-full max-w-[480px] mx-auto lg:mx-0 relative"
           >
             <HeroVisual />

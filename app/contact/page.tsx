@@ -128,7 +128,11 @@ const fadeUp = {
   visible: (i = 0) => ({
     opacity: 1,
     y: 0,
-    transition: { duration: 0.65, ease: [0.22, 1, 0.36, 1], delay: i * 0.08 },
+    transition: {
+      duration: 0.65,
+      ease: [0.22, 1, 0.36, 1] as any,
+      delay: i * 0.08,
+    },
   }),
 };
 
@@ -240,7 +244,7 @@ function ContactForm() {
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] as any }}
         className="bg-[#060f1e] border border-blue-500/20 rounded-2xl p-10 flex flex-col items-center justify-center text-center min-h-[480px] gap-5"
         style={{ boxShadow: "0 0 60px rgba(37,99,235,0.08)" }}
       >
@@ -545,7 +549,7 @@ function PageHeader() {
       ref={ref}
       initial={{ opacity: 0, y: 30 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] as any }}
       className="text-center max-w-2xl mx-auto mb-14 sm:mb-16"
     >
       <div className="inline-flex items-center gap-2.5 mb-5">

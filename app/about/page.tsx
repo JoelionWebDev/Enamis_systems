@@ -37,7 +37,11 @@ const fadeUp = {
   visible: (i = 0) => ({
     opacity: 1,
     y: 0,
-    transition: { duration: 0.65, ease: [0.22, 1, 0.36, 1], delay: i * 0.08 },
+    transition: {
+      duration: 0.65,
+      ease: [0.22, 1, 0.36, 1] as any,
+      delay: i * 0.08,
+    },
   }),
 };
 
@@ -46,7 +50,7 @@ const fadeLeft = {
   visible: {
     opacity: 1,
     x: 0,
-    transition: { duration: 0.65, ease: [0.22, 1, 0.36, 1] },
+    transition: { duration: 0.65, ease: [0.22, 1, 0.36, 1] as any },
   },
 };
 
@@ -55,7 +59,7 @@ const fadeRight = {
   visible: {
     opacity: 1,
     x: 0,
-    transition: { duration: 0.65, ease: [0.22, 1, 0.36, 1] },
+    transition: { duration: 0.65, ease: [0.22, 1, 0.36, 1] as any },
   },
 };
 
@@ -807,7 +811,7 @@ function CtaStrip() {
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] as any }}
       className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 xl:px-16 py-10 sm:py-12"
       aria-label="Call to action"
     >

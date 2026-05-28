@@ -133,7 +133,11 @@ const fadeUp = {
   visible: (i: number) => ({
     opacity: 1,
     y: 0,
-    transition: { duration: 0.65, ease: [0.22, 1, 0.36, 1], delay: i * 0.1 },
+    transition: {
+      duration: 0.65,
+      ease: [0.22, 1, 0.36, 1] as any,
+      delay: i * 0.1,
+    },
   }),
 };
 
@@ -142,7 +146,7 @@ const headerVariants = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
+    transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] as any },
   },
 };
 
@@ -481,7 +485,7 @@ function CtaStrip() {
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] as any }}
       className="mt-16 sm:mt-20 relative overflow-hidden rounded-2xl border border-blue-500/20 bg-[#060f1e]"
       style={{ boxShadow: "0 0 60px rgba(37,99,235,0.1)" }}
     >
