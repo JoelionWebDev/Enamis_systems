@@ -1,14 +1,21 @@
-import React from "react";
 import HeroSection from "./components/heroSection";
 import ServicesSection from "./components/Services";
+import AboutSection from "./components/AboutSection";
+import ContactSection from "./components/ContactSection";
+import Footer from "./components/Footer";
+import GallerySection from "./components/GallerySection";
+import ChatWidget from "./components/ChatWidget";
 
-const page = () => {
+export default function HomePage() {
   return (
-    <div>
+    <>
       <HeroSection />
       <ServicesSection />
-    </div>
+      <AboutSection />
+      <GallerySection />
+      <ContactSection />
+      <Footer />
+      <ChatWidget />
+    </>
   );
-};
-
-export default page;
+}
