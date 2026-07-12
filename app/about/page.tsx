@@ -3,7 +3,7 @@
 import { useRef } from "react";
 import Image from "next/image";
 import { motion, useInView } from "framer-motion";
-import { Zap, Sun, Camera, ShieldCheck, Flame, Phone, MessageSquare, ArrowRight, Target, Eye, HeartHandshake, BadgeCheck, Shield, Clock, MapPin, Wrench, Lightbulb, Star, CheckCircle2, Sparkles } from "lucide-react";
+import { Zap, Sun, Camera, ShieldCheck, Flame, Home, Phone, MessageSquare, ArrowRight, Target, Eye, HeartHandshake, BadgeCheck, Shield, Clock, MapPin, Wrench, Lightbulb, Star, CheckCircle2, Sparkles } from "lucide-react";
 import Footer from "../components/Footer";
 
 const fadeUp = {
@@ -110,6 +110,7 @@ function AboutHero() {
               { icon: <Camera className="w-3.5 h-3.5" />, label: "CCTV Installation", c: "from-indigo-500 to-brand-blue" },
               { icon: <ShieldCheck className="w-3.5 h-3.5" />, label: "Access Control Systems", c: "from-brand-blue to-indigo-800" },
               { icon: <Flame className="w-3.5 h-3.5" />, label: "Fire Alarm Systems", c: "from-brand-blue to-blue-900" },
+              { icon: <Home className="w-3.5 h-3.5" />, label: "Home Automation", c: "from-emerald-500 to-teal-600" },
             ].map((s) => (
               <span key={s.label} className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-surface-card border border-border-light rounded-lg text-content-muted text-xs font-medium">
                 <span className={`flex items-center justify-center w-4 h-4 rounded bg-gradient-to-br ${s.c} text-white flex-shrink-0`}>{s.icon}</span>
@@ -121,7 +122,7 @@ function AboutHero() {
             <motion.a href="/contact" whileHover={{ scale: 1.03, boxShadow: "0 0 24px rgba(37,99,235,0.3)" }} whileTap={{ scale: 0.97 }}
               className="group relative inline-flex items-center justify-center gap-2.5 text-white font-bold px-6 py-3.5 rounded-xl text-sm overflow-hidden bg-brand-blue">
               <span className="absolute inset-0 translate-x-[-110%] group-hover:translate-x-[110%] bg-gradient-to-r from-transparent via-white/15 to-transparent transition-transform duration-700" />
-              <MessageSquare className="w-4 h-4" /> Get Free Consultation <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+              <MessageSquare className="w-4 h-4" /> Get Consultation <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
             </motion.a>
             <motion.a href="#services" whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}
               className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl border border-border-med hover:border-brand-blue/45 text-content-primary font-bold text-sm transition-all">
@@ -304,7 +305,7 @@ export default function AboutPage() {
                 <motion.a href="/contact" whileHover={{ scale: 1.03, boxShadow: "0 0 24px rgba(37,99,235,0.3)" }} whileTap={{ scale: 0.97 }}
                   className="group relative flex items-center gap-2 px-6 py-3 rounded-xl bg-brand-blue text-white text-sm font-bold overflow-hidden">
                   <span className="absolute inset-0 translate-x-[-110%] group-hover:translate-x-[110%] bg-gradient-to-r from-transparent via-white/15 to-transparent transition-transform duration-700" />
-                  Get Free Consultation <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+                  Get Consultation <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
                 </motion.a>
               </div>
             </div>

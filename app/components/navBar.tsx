@@ -10,6 +10,7 @@ import {
   Home,
   Info,
   Mail,
+  Radio,
 } from "lucide-react";
 import ThemeToggle from "./ThemeToggle";
 
@@ -18,14 +19,16 @@ interface NavService {
   label: string;
   desc: string;
   href: string;
+  image: string;
 }
 
 const SERVICES: NavService[] = [
-  { icon: <Zap className="w-4 h-4" />, label: "Electrical Installation", desc: "Residential & commercial wiring", href: "#electrical" },
-  { icon: <Sun className="w-4 h-4" />, label: "Solar & Inverter Systems", desc: "Clean, reliable power solutions", href: "#solar" },
-  { icon: <Camera className="w-4 h-4" />, label: "CCTV Installation", desc: "HD surveillance & monitoring", href: "#cctv" },
-  { icon: <ShieldCheck className="w-4 h-4" />, label: "Access Control", desc: "Smart entry & biometric systems", href: "#access" },
-  { icon: <Flame className="w-4 h-4" />, label: "Fire Alarm Systems", desc: "Detection & safety installations", href: "#fire" },
+  { icon: <Zap className="w-4 h-4" />, label: "Electrical Installation", desc: "Residential & commercial wiring", href: "/services/electrical", image: "/elect.png" },
+  { icon: <Sun className="w-4 h-4" />, label: "Solar & Inverter Systems", desc: "Clean, reliable power solutions", href: "/services/solar", image: "/sola.png" },
+  { icon: <Camera className="w-4 h-4" />, label: "CCTV Installation", desc: "HD surveillance & monitoring", href: "/services/cctv", image: "/cctv.png" },
+  { icon: <ShieldCheck className="w-4 h-4" />, label: "Access Control", desc: "Smart entry & biometric systems", href: "/services/access-control", image: "/smartaccess.png" },
+  { icon: <Flame className="w-4 h-4" />, label: "Fire Alarm Systems", desc: "Detection & safety installations", href: "/services/fire-alarm", image: "/fire.png" },
+  { icon: <Home className="w-4 h-4" />, label: "Home Automation", desc: "Smart living & voice control", href: "/services/home-automation", image: "/project1.jpeg" },
 ];
 
 const NAV_LINKS = [
@@ -37,11 +40,12 @@ const NAV_LINKS = [
 
 const MOBILE_LINKS = [
   { icon: <Home className="w-4 h-4" />, label: "Home", href: "/" },
-  { icon: <Zap className="w-4 h-4" />, label: "Electrical Installation", href: "#electrical" },
-  { icon: <Sun className="w-4 h-4" />, label: "Solar & Inverter Systems", href: "#solar" },
-  { icon: <Camera className="w-4 h-4" />, label: "CCTV Installation", href: "#cctv" },
-  { icon: <ShieldCheck className="w-4 h-4" />, label: "Access Control", href: "#access" },
-  { icon: <Flame className="w-4 h-4" />, label: "Fire Alarm Systems", href: "#fire" },
+  { icon: <Zap className="w-4 h-4" />, label: "Electrical Installation", href: "/services/electrical" },
+  { icon: <Sun className="w-4 h-4" />, label: "Solar & Inverter Systems", href: "/services/solar" },
+  { icon: <Camera className="w-4 h-4" />, label: "CCTV Installation", href: "/services/cctv" },
+  { icon: <ShieldCheck className="w-4 h-4" />, label: "Access Control", href: "/services/access-control" },
+  { icon: <Flame className="w-4 h-4" />, label: "Fire Alarm Systems", href: "/services/fire-alarm" },
+  { icon: <Radio className="w-4 h-4" />, label: "Home Automation", href: "/services/home-automation" },
   { icon: <Info className="w-4 h-4" />, label: "About Us", href: "/about" },
   { icon: <Mail className="w-4 h-4" />, label: "Contact", href: "/contact" },
 ];
@@ -55,7 +59,7 @@ function ServicesDropdown({ isOpen }: { isOpen: boolean }) {
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: -6, scale: 0.97 }}
           transition={{ duration: 0.18, ease: "easeOut" }}
-          className="absolute top-[calc(100%+10px)] left-1/2 -translate-x-1/2 w-[260px] bg-surface-elevated border border-border-light rounded-2xl p-2 shadow-xl z-50"
+          className="absolute top-[calc(100%+10px)] left-1/2 -translate-x-1/2 w-[280px] bg-surface-elevated border border-border-light rounded-2xl p-2 shadow-xl z-50"
           role="menu"
         >
           {SERVICES.map((s) => (
@@ -65,8 +69,8 @@ function ServicesDropdown({ isOpen }: { isOpen: boolean }) {
               className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-brand-blue/5 transition-colors duration-150 group"
               role="menuitem"
             >
-              <div className="w-8 h-8 rounded-lg bg-brand-blue/10 flex items-center justify-center text-brand-blue flex-shrink-0">
-                {s.icon}
+              <div className="w-9 h-9 rounded-lg overflow-hidden flex-shrink-0 bg-surface-secondary border border-border-light">
+                <Image src={s.image} alt="" width={36} height={36} className="w-full h-full object-cover" />
               </div>
               <div>
                 <p className="text-[13px] font-semibold text-content-primary leading-tight">{s.label}</p>
@@ -74,6 +78,14 @@ function ServicesDropdown({ isOpen }: { isOpen: boolean }) {
               </div>
             </Link>
           ))}
+          <Link
+            href="/services"
+            className="flex items-center justify-center gap-1.5 mt-1.5 px-3 py-2.5 rounded-xl bg-brand-blue/5 border border-border-light text-brand-blue text-[11px] font-bold tracking-wide hover:bg-brand-blue/10 transition-colors duration-150"
+            role="menuitem"
+          >
+            <ChevronDown className="w-3 h-3 rotate-90" />
+            View All Services
+          </Link>
         </motion.div>
       )}
     </AnimatePresence>
@@ -129,7 +141,7 @@ function MobileMenu({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
                 className="flex items-center justify-center gap-2 py-3 rounded-xl bg-brand-blue text-white text-[13px] font-bold transition-all"
               >
                 <MessageSquare className="w-4 h-4" />
-                Get Free Quote
+                Get Quote
               </button>
             </motion.div>
           </div>
@@ -270,7 +282,7 @@ export default function Navbar() {
             >
               <span className="absolute inset-0 translate-x-[-110%] group-hover:translate-x-[110%] bg-gradient-to-r from-transparent via-white/15 to-transparent transition-transform duration-700" />
               <MessageSquare className="w-3.5 h-3.5" />
-              Get Free Quote
+              Get Quote
             </motion.button>
           </motion.div>
 

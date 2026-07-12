@@ -1,73 +1,11 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { motion } from "framer-motion";
-import { Zap, Sun, Camera, ShieldCheck, Flame, ArrowRight, CheckCircle2 } from "lucide-react";
-
-interface Service {
-  id: string;
-  icon: React.ReactNode;
-  title: string;
-  description: string;
-  features: string[];
-  image: string;
-  imageAlt: string;
-  accent: string;
-  glowColor: string;
-}
-
-const SERVICES: Service[] = [
-  {
-    id: "electrical", icon: <Zap className="w-5 h-5" />,
-    title: "Electrical Installation",
-    description: "Safe and professional electrical wiring, panel installation, maintenance, and power distribution solutions for residential and commercial properties.",
-    features: ["Panel upgrades", "Wiring & rewiring", "Power distribution", "Load management"],
-    image: "/elect.png",
-    imageAlt: "Electrician performing professional electrical panel installation",
-    accent: "from-blue-500 to-blue-700",
-    glowColor: "rgba(37,99,235,0.2)",
-  },
-  {
-    id: "solar", icon: <Sun className="w-5 h-5" />,
-    title: "Solar & Inverter Systems",
-    description: "Reliable solar energy and inverter backup systems engineered for maximum efficiency, designed for homes, businesses, and industrial facilities.",
-    features: ["Solar panel installation", "Inverter backup", "Battery storage", "Energy monitoring"],
-    image: "/sola.png",
-    imageAlt: "Professional solar panel installation on commercial rooftop",
-    accent: "from-amber-500 to-orange-600",
-    glowColor: "rgba(245,158,11,0.2)",
-  },
-  {
-    id: "cctv", icon: <Camera className="w-5 h-5" />,
-    title: "CCTV Installation",
-    description: "Advanced HD surveillance systems for 24/7 monitoring, property protection, and safety—professionally installed and remotely accessible.",
-    features: ["HD & 4K cameras", "Night vision", "Remote monitoring", "Cloud storage"],
-    image: "/cctv.png",
-    imageAlt: "Modern CCTV security camera system installed in commercial building",
-    accent: "from-indigo-500 to-blue-700",
-    glowColor: "rgba(99,102,241,0.2)",
-  },
-  {
-    id: "access", icon: <ShieldCheck className="w-5 h-5" />,
-    title: "Access Control Systems",
-    description: "Modern smart access solutions including biometric readers, smart locks, card systems, and intelligent entry management for any environment.",
-    features: ["Biometric systems", "Smart card access", "Video intercom", "Audit trails"],
-    image: "/smartaccess.png",
-    imageAlt: "Smart biometric access control system on modern office door",
-    accent: "from-blue-600 to-indigo-700",
-    glowColor: "rgba(37,99,235,0.2)",
-  },
-  {
-    id: "fire", icon: <Flame className="w-5 h-5" />,
-    title: "Fire Alarm Systems",
-    description: "Intelligent fire detection and alarm systems that safeguard lives and property in residential, commercial, and industrial environments.",
-    features: ["Smoke detectors", "Heat sensors", "Sprinkler integration", "Emergency alerts"],
-    image: "/fire.png",
-    imageAlt: "Fire alarm detection system installed on commercial building ceiling",
-    accent: "from-blue-500 to-blue-800",
-    glowColor: "rgba(29,78,216,0.2)",
-  },
-];
+import { ArrowRight, CheckCircle2 } from "lucide-react";
+import { SERVICES } from "@/app/lib/services";
+import { getIcon } from "@/app/lib/icons";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 40 },
@@ -86,7 +24,7 @@ function FeatureTag({ text }: { text: string }) {
   );
 }
 
-function ServiceCard({ service, index }: { service: Service; index: number }) {
+function ServiceCard({ service, index }: { service: typeof SERVICES[number]; index: number }) {
   return (
     <motion.article
       custom={index} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}
@@ -103,11 +41,27 @@ function ServiceCard({ service, index }: { service: Service; index: number }) {
           className="object-cover transition-transform duration-700 group-hover:scale-110"
           loading={index < 2 ? "eager" : "lazy"} />
         <div className="absolute inset-0 bg-gradient-to-t from-surface-card via-surface-card/60 to-transparent" aria-hidden="true" />
-        <div className="absolute top-4 left-4 z-20">
+        <div className="absolute top-3 left-3 z-20 flex items-center gap-2">
           <div className={`flex items-center justify-center w-9 h-9 rounded-xl bg-gradient-to-br ${service.accent} text-white shadow-lg`}>
-            {service.icon}
+            {getIcon(service.iconName, "w-5 h-5")}
           </div>
         </div>
+
+        {/* Gallery image badges */}
+        {service.gallery.length > 0 && (
+          <div className="absolute bottom-3 right-3 z-20 flex -space-x-2">
+            {service.gallery.slice(0, 3).map((img) => (
+              <div key={img} className="w-7 h-7 rounded-full border-2 border-surface-card overflow-hidden shadow-md">
+                <Image src={img} alt="" width={28} height={28} className="w-full h-full object-cover" />
+              </div>
+            ))}
+            {service.gallery.length > 3 && (
+              <div className="w-7 h-7 rounded-full border-2 border-surface-card bg-brand-blue flex items-center justify-center shadow-md">
+                <span className="text-[8px] text-white font-bold">+{service.gallery.length - 3}</span>
+              </div>
+            )}
+          </div>
+        )}
       </div>
 
       <div className="relative z-20 flex flex-col flex-1 p-5 sm:p-6">
@@ -116,20 +70,20 @@ function ServiceCard({ service, index }: { service: Service; index: number }) {
         </h3>
         <p className="text-content-muted text-sm leading-relaxed mb-4 flex-1">{service.description}</p>
         <ul className="grid grid-cols-2 gap-1.5 mb-5">
-          {service.features.map((f) => <FeatureTag key={f} text={f} />)}
+          {service.features.slice(0, 4).map((f) => <FeatureTag key={f} text={f} />)}
         </ul>
-        <a href={`#${service.id}`}
+        <Link href={`/services/${service.slug}`}
           className={`group/btn relative flex items-center gap-2 self-start px-4 py-2.5 rounded-xl text-white text-xs font-bold overflow-hidden transition-all duration-200 hover:gap-3 bg-gradient-to-br ${service.accent}`}>
           <span className="absolute inset-0 translate-x-[-110%] group-hover/btn:translate-x-[110%] bg-gradient-to-r from-transparent via-white/15 to-transparent transition-transform duration-600" aria-hidden="true" />
           Learn More
           <ArrowRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover/btn:translate-x-0.5" />
-        </a>
+        </Link>
       </div>
     </motion.article>
   );
 }
 
-function FeaturedCard({ service }: { service: Service }) {
+function FeaturedCard({ service }: { service: typeof SERVICES[number] }) {
   return (
     <motion.article
       variants={fadeUp} custom={0} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}
@@ -152,24 +106,35 @@ function FeaturedCard({ service }: { service: Service }) {
             <span className="text-white text-[10px] font-bold tracking-widest uppercase">Featured</span>
           </div>
         </div>
+
+        {/* Gallery badges on featured */}
+        {service.gallery.length > 0 && (
+          <div className="absolute bottom-4 right-4 z-20 flex -space-x-2">
+            {service.gallery.map((img) => (
+              <div key={img} className="w-8 h-8 rounded-full border-2 border-surface-card overflow-hidden shadow-md">
+                <Image src={img} alt="" width={32} height={32} className="w-full h-full object-cover" />
+              </div>
+            ))}
+          </div>
+        )}
       </div>
 
       <div className="relative z-20 flex flex-col justify-center p-6 sm:p-8 flex-1">
         <div className={`flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-br ${service.accent} text-white shadow-lg mb-4 self-start`}>
-          {service.icon}
+          {getIcon(service.iconName, "w-5 h-5")}
         </div>
         <span className="text-brand-blue/70 text-[10px] font-bold tracking-[0.25em] uppercase mb-2">01 — Core Service</span>
         <h3 className="text-content-primary font-heading font-black text-2xl sm:text-3xl leading-snug mb-3">{service.title}</h3>
         <p className="text-content-muted text-sm sm:text-base leading-relaxed mb-5 max-w-md">{service.description}</p>
         <ul className="grid grid-cols-2 gap-2 mb-6">
-          {service.features.map((f) => <FeatureTag key={f} text={f} />)}
+          {service.features.slice(0, 4).map((f) => <FeatureTag key={f} text={f} />)}
         </ul>
-        <a href={`#${service.id}`}
+        <Link href={`/services/${service.slug}`}
           className="group/btn relative flex items-center gap-2 self-start px-5 py-3 rounded-xl bg-brand-blue text-white text-sm font-bold overflow-hidden transition-all duration-200 hover:gap-3">
           <span className="absolute inset-0 translate-x-[-110%] group-hover/btn:translate-x-[110%] bg-gradient-to-r from-transparent via-white/15 to-transparent transition-transform duration-700" aria-hidden="true" />
           Learn More
           <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-0.5 transition-transform duration-200" />
-        </a>
+        </Link>
       </div>
     </motion.article>
   );
@@ -189,7 +154,6 @@ function CtaStrip() {
         <div className="absolute left-1/4 top-1/2 -translate-y-1/2 w-[400px] h-[200px] bg-brand-blue/5 rounded-full blur-3xl" />
         <div className="absolute right-1/4 top-1/2 -translate-y-1/2 w-[300px] h-[200px] bg-brand-amber/5 rounded-full blur-3xl" />
       </div>
-
       <div className="relative z-10 flex flex-col sm:flex-row items-center justify-between gap-6 px-8 sm:px-10 py-8 sm:py-10">
         <div className="text-center sm:text-left">
           <p className="text-content-primary font-heading font-black text-xl sm:text-2xl mb-1">Need a Custom Solution?</p>
@@ -200,15 +164,10 @@ function CtaStrip() {
             className="flex items-center gap-2 px-5 py-3 rounded-xl border border-border-med text-brand-blue hover:bg-brand-blue/5 transition-all duration-200 text-sm font-mono tracking-wide">
             +234 08036227782
           </a>
-          <motion.a
-            href="#contact"
-            whileHover={{ scale: 1.03, boxShadow: "0 0 24px rgba(37,99,235,0.3)" }}
-            whileTap={{ scale: 0.97 }}
-            className="group relative flex items-center gap-2 px-6 py-3 rounded-xl bg-brand-blue text-white text-sm font-bold overflow-hidden"
-          >
+          <motion.a href="#contact" whileHover={{ scale: 1.03, boxShadow: "0 0 24px rgba(37,99,235,0.3)" }} whileTap={{ scale: 0.97 }}
+            className="group relative flex items-center gap-2 px-6 py-3 rounded-xl bg-brand-blue text-white text-sm font-bold overflow-hidden">
             <span className="absolute inset-0 translate-x-[-110%] group-hover:translate-x-[110%] bg-gradient-to-r from-transparent via-white/15 to-transparent transition-transform duration-700" aria-hidden="true" />
-            Get Free Consultation
-            <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform duration-200" />
+            Get Consultation <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform duration-200" />
           </motion.a>
         </div>
       </div>

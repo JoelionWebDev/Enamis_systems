@@ -3,7 +3,7 @@
 import { useRef } from "react";
 import Image from "next/image";
 import { motion, useInView } from "framer-motion";
-import { Phone, ArrowRight, ChevronRight, CheckCircle2, Radio, Sun, Camera, ShieldCheck, Zap, Flame } from "lucide-react";
+import { Phone, ArrowRight, ChevronRight, CheckCircle2, Radio, Sun, Camera, ShieldCheck, Zap, Flame, Home } from "lucide-react";
 
 const SERVICES = [
   { icon: <Zap className="w-4 h-4" />, label: "Electrical Installation", color: "from-blue-500 to-blue-700" },
@@ -11,6 +11,7 @@ const SERVICES = [
   { icon: <Camera className="w-4 h-4" />, label: "CCTV Systems", color: "from-indigo-500 to-blue-700" },
   { icon: <ShieldCheck className="w-4 h-4" />, label: "Access Control", color: "from-blue-600 to-indigo-700" },
   { icon: <Flame className="w-4 h-4" />, label: "Fire Alarm", color: "from-blue-500 to-blue-800" },
+  { icon: <Home className="w-4 h-4" />, label: "Home Automation", color: "from-emerald-500 to-teal-600" },
 ];
 
 const TRUST_BADGES = [
@@ -171,7 +172,7 @@ export default function HeroSection() {
               >
                 <span className="absolute inset-0 translate-x-[-115%] group-hover:translate-x-[115%] bg-gradient-to-r from-transparent via-white/15 to-transparent transition-transform duration-700" aria-hidden="true" />
                 <Phone className="w-4 h-4 flex-shrink-0" />
-                Get Free Consultation
+                Get Consultation
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" />
               </motion.a>
 
